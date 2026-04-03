@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
     libcurl4-openssl-dev \
     libopenblas-dev \
+    libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
@@ -25,6 +26,7 @@ RUN cmake -B build -G Ninja \
     -DGGML_BLAS=ON \
     -DGGML_BLAS_VENDOR=OpenBLAS \
     -DGGML_CURL=ON \
+    -DLLAMA_OPENSSL=ON \
     && cmake --build build --config Release -j6
 
 COPY start.sh /app/start.sh
